@@ -1,3 +1,19 @@
+body,
+html {
+  margin: 0;
+  padding: 0
+}
+
+.global-nav-inner {
+  width: 100vw;
+  height: 50px;
+  background: #cccccc;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
 #timer:before {
   content: none;
 }

@@ -1,6 +1,14 @@
 
 const html = $elm => data => ($elm.innerHTML = data)
+
 const setId = $elm => id => ($elm.id = id)
+
+const style = elm => prop => value => (elm.style[prop] = value)
+
+const storage = {
+  set: name => value => localStorage.setItem(name, value),
+  get: name => localStorage.getItem(name)
+}
 
 const $body = document.querySelector('body')
 const $nav = document.querySelector('.global-nav-inner')
@@ -20,39 +28,36 @@ html($birdie)(svgIcon)
 const $clock = document.querySelector('#timer svg')
 const $time = document.querySelector('#timer .time')
 
-const start = 12
-const end = 2
-let current = localStorage.current || start
+
+/*
+const start = 13
+const end = 0
+let current =  start
 
 const time = 10 * 60 // 10 mins = 600 seconds
 
-time.style.strokeDashoffset = current
+style($time)('strokeDashoffset')(start)
 
 const update = (timer) => {
   if (timer >= 0) {
-    setTimeout(update.bind(this, (timer - 1), 1000))
+    setTimeout(update.bind(this, (timer - 1)), 1000)
   }
 }
 
-/*
+
 
   if (current > end) {
     current = current - step
     time.style.strokeDashoffset = current
-    localStorage.current = current
   } else {
     current = 0
     time.style.strokeDashoffset = current
-    localStorage.current = current
-
     time.style.stroke = '#ff6961'
     nav.style.backgroundColor = '#ff6961'
     body.style.backgroundColor = '#ff6961'
   }
 
 */ 
-
-window.setInterval(update, interval * 1000)
 
 birdie.addEventListener('click', () => {
   current = start + 1
