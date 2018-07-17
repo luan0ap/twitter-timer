@@ -5,11 +5,6 @@ const setId = $elm => id => ($elm.id = id)
 
 const style = elm => prop => value => (elm.style[prop] = value)
 
-const storage = {
-  set: name => value => localStorage.setItem(name, value),
-  get: name => localStorage.getItem(name)
-}
-
 const $birdie = document.querySelector('.Icon--bird')
 
 const svgIcon = `
@@ -23,24 +18,21 @@ const svgIcon = `
 setId($birdie)('timer')
 html($birdie)(svgIcon)
 
-const $clock = document.querySelector('#timer svg')
 const $time = document.querySelector('#timer .time')
 
 const start = 12
 const time = 30
 
-const clockView = stk => style($time)('strokeDashoffset')(stk)
-
 const update = (step, timer) => {
-  clockView(step)
+  style($time)('strokeDashoffset')(step)
   if (step >= 0) {
     return setTimeout(update, (timer / step) * 1000, (step - 1), timer)
   }
 }
 
-update(start, time)
+const stop = update(start, time)
 
 $birdie.addEventListener('click', () => {
   style($time)('strokeDashoffset')(12)
-  clearTimeout(update)
+  clearTimeout(stop)
 })
