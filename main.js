@@ -10,8 +10,6 @@ const storage = {
   get: name => localStorage.getItem(name)
 }
 
-const $body = document.querySelector('body')
-const $nav = document.querySelector('.global-nav-inner')
 const $birdie = document.querySelector('.Icon--bird')
 
 const svgIcon = `
@@ -28,41 +26,21 @@ html($birdie)(svgIcon)
 const $clock = document.querySelector('#timer svg')
 const $time = document.querySelector('#timer .time')
 
+const start = 12
+const time = 30
 
-/*
-const start = 13
-const end = 0
-let current =  start
+const clockView = stk => style($time)('strokeDashoffset')(stk)
 
-const time = 10 * 60 // 10 mins = 600 seconds
-
-style($time)('strokeDashoffset')(start)
-
-const update = (timer) => {
-  if (timer >= 0) {
-    setTimeout(update.bind(this, (timer - 1)), 1000)
+const update = (step, timer) => {
+  clockView(step)
+  if (step >= 0) {
+    return setTimeout(update, (timer / step) * 1000, (step - 1), timer)
   }
 }
 
+update(start, time)
 
-
-  if (current > end) {
-    current = current - step
-    time.style.strokeDashoffset = current
-  } else {
-    current = 0
-    time.style.strokeDashoffset = current
-    time.style.stroke = '#ff6961'
-    nav.style.backgroundColor = '#ff6961'
-    body.style.backgroundColor = '#ff6961'
-  }
-
-*/ 
-
-birdie.addEventListener('click', () => {
-  current = start + 1
-  time.style.stroke = '#fff'
-  nav.style.backgroundColor = '#fff'
-  body.style.backgroundColor = '#e6ecf0'
-  update()
+$birdie.addEventListener('click', () => {
+  style($time)('strokeDashoffset')(12)
+  clearTimeout(update)
 })
